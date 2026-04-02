@@ -24,10 +24,10 @@ export const Hero = ({ onOpenPricing, onOpenDemo }: { onOpenPricing: () => void;
           
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <button 
-              onClick={onOpenDemo}
+              onClick={() => document.getElementById('video')?.scrollIntoView({ behavior: 'smooth' })}
               className="px-8 py-4 bg-[var(--color-cyan)] text-black font-bold rounded-lg hover:bg-[#00D5DD] transition-colors animate-pulse-glow"
             >
-              Book a Free Demo
+              Watch Demo Videos
             </button>
             <button 
               onClick={onOpenPricing}
