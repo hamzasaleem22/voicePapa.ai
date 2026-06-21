@@ -11,34 +11,82 @@
   <body>
     <div id="root"></div>
     <style>
-      @keyframes lk-pulse {
+      @keyframes vp-pulse {
         0% { box-shadow: 0 0 0 0 rgba(0,44,242,0.5); }
         70% { box-shadow: 0 0 0 20px rgba(0,44,242,0); }
         100% { box-shadow: 0 0 0 0 rgba(0,44,242,0); }
       }
-      @keyframes lk-float {
+      @keyframes vp-float {
         0%, 100% { transform: translateY(0px); }
         50% { transform: translateY(-5px); }
       }
+      #vpWidgetBtn {
+        all: unset;
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 2147483647;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #002CF2;
+        animation: vp-pulse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite, vp-float 3s ease-in-out infinite;
+        transition: transform 0.2s;
+        box-shadow: 0 2px 12px rgba(0,44,242,0.4);
+      }
+      #vpWidgetBtn:hover { transform: scale(1.1); }
+      #vpWidgetBtn:active { transform: scale(0.95); }
+      #vpWidgetBtn svg {
+        width: 28px;
+        height: 28px;
+        fill: white;
+      }
       lk-embed-popup {
-        --lk-launcher-size: 60px !important;
-        --lk-launcher-bottom: 24px !important;
-        --lk-launcher-right: 24px !important;
-      }
-      lk-embed-popup::part(launcher) {
-        animation: lk-pulse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite, lk-float 3s ease-in-out infinite !important;
-        transition: transform 0.2s !important;
-      }
-      lk-embed-popup::part(launcher):hover {
-        transform: scale(1.08) !important;
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 2147483646;
+        opacity: 0;
+        pointer-events: none;
+        width: 60px;
+        height: 60px;
       }
       @media (max-width: 768px) {
-        lk-embed-popup {
-          --lk-launcher-bottom: 80px !important;
-          --lk-launcher-right: 16px !important;
+        #vpWidgetBtn, lk-embed-popup {
+          bottom: 80px;
+          right: 16px;
         }
+        #vpWidgetBtn { width: 56px; height: 56px; }
+        #vpWidgetBtn svg { width: 24px; height: 24px; }
+        lk-embed-popup { width: 56px; height: 56px; }
       }
     </style>
+    <button id="vpWidgetBtn" aria-label="Talk to AI assistant">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+        <path d="M19 10v2a7 7 0 0 1-14 0v-2H3v2a9 9 0 0 0 8 8.94V22h2v-1.06A9 9 0 0 0 21 12v-2h-2z"/>
+      </svg>
+    </button>
+    <script>
+      (function() {
+        var btn = document.getElementById('vpWidgetBtn');
+        btn.addEventListener('click', function() {
+          var timer = setInterval(function() {
+            var el = document.querySelector('lk-embed-popup');
+            if (!el) return;
+            var root = el.shadowRoot || el;
+            var launcher = root.querySelector && root.querySelector('button, [class*="launcher"], [class*="toggle"], [class*="trigger"]');
+            if (launcher) { launcher.click(); clearInterval(timer); }
+            else { el.click(); clearInterval(timer); }
+          }, 300);
+          setTimeout(function() { clearInterval(timer); }, 10000);
+        });
+      })();
+    </script>
     <script
       src="https://cloud.livekit.io/embed-popup.js"
       data-lk-agent="CA_QnYchSugBVk3"
