@@ -10,11 +10,40 @@
   </head>
   <body>
     <div id="root"></div>
+    <style>
+      @keyframes lk-pulse {
+        0% { box-shadow: 0 0 0 0 rgba(0,44,242,0.5); }
+        70% { box-shadow: 0 0 0 20px rgba(0,44,242,0); }
+        100% { box-shadow: 0 0 0 0 rgba(0,44,242,0); }
+      }
+      @keyframes lk-float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-5px); }
+      }
+      lk-embed-popup {
+        --lk-launcher-size: 60px !important;
+        --lk-launcher-bottom: 24px !important;
+        --lk-launcher-right: 24px !important;
+      }
+      lk-embed-popup::part(launcher) {
+        animation: lk-pulse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite, lk-float 3s ease-in-out infinite !important;
+        transition: transform 0.2s !important;
+      }
+      lk-embed-popup::part(launcher):hover {
+        transform: scale(1.08) !important;
+      }
+      @media (max-width: 768px) {
+        lk-embed-popup {
+          --lk-launcher-bottom: 80px !important;
+          --lk-launcher-right: 16px !important;
+        }
+      }
+    </style>
     <script
       src="https://cloud.livekit.io/embed-popup.js"
-      data-lk-agent="CA_svhSYMjR8yzC"
-      data-lk-color="#032656"
-      data-lk-theme="light"
+      data-lk-agent="CA_QnYchSugBVk3"
+      data-lk-color="#002CF2"
+      data-lk-theme="dark"
     ></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
