@@ -94,7 +94,7 @@
   animation: waveform 1s ease-in-out infinite;
 }
 
-body {
+#root {
   animation: fadeIn 1.5s ease-out forwards;
 }
 

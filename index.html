@@ -10,6 +10,12 @@
   </head>
   <body>
     <div id="root"></div>
+    <style>
+      lk-embed-popup { z-index: 2147483647 !important; }
+      @media (max-width: 768px) {
+        lk-embed-popup { bottom: 80px !important; }
+      }
+    </style>
     <script
       src="https://cloud.livekit.io/embed-popup.js"
       data-lk-agent="CA_QnYchSugBVk3"
