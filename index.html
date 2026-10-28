@@ -10,6 +10,15 @@
   </head>
   <body>
     <div id="root"></div>
+    <style>
+      /* Keep the LiveKit widget (mounted as #lk-embed-wrapper on <body>) above the page's modals and navbar */
+      #lk-embed-wrapper { position: relative; z-index: 2147483647; }
+    </style>
+    <script
+      src="https://cloud.livekit.io/embed-popup.js"
+      data-lk-agent="CA_3ngny5R5Vjhn"
+      data-lk-color="#002CF2"
+    ></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
